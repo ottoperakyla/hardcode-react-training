@@ -1,0 +1,21 @@
+$spacing: 0.5em;
+
+.person {
+  padding: 1em;
+  border: 5px solid black;
+  border-radius: 10px;
+  margin-top: $spacing;
+
+  &.male {
+    background-color: lightblue;
+  }
+
+  &.female {
+    background-color: hotpink;
+  }
+
+  &.male + .female,
+  &.female + .male {
+    margin-top: calc($spacing * 4);
+  }
+}
