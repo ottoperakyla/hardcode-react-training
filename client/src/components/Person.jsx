@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Button from "./Button";
 import styles from "./Person.pcss";
 import personService from "../services/person";
@@ -19,8 +20,10 @@ const Person = props => {
 
   return (
     <FadeOut className={classes} pose={person.firing ? "firing" : "visible"}>
-      <strong>{person.lastName}</strong>, {person.firstName} (age:{" "}
-      {personService.formatAge(person.age)} years)
+      <Link to={`persons/${person.id}`}>
+        <strong>{person.lastName}</strong>, {person.firstName} (age:{" "}
+        {personService.formatAge(person.age)} years){" "}
+      </Link>
       <div>
         <Button
           block

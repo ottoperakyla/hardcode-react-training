@@ -2,9 +2,8 @@ import React from "react";
 import posed from "react-pose";
 import { Route, Switch } from "react-router";
 import IndexPage from "./IndexPage";
+import PersonPage from "./PersonPage";
 import Loading from "./Loading";
-import { TypographyStyle, GoogleFont } from "react-typography";
-import typography from "../services/typography";
 import "./App.pcss";
 
 const AnimatedContainer = posed.div({
@@ -22,9 +21,6 @@ class App extends React.Component {
 
     return (
       <AnimatedContainer initialPose="left" pose="right">
-        <TypographyStyle typography={typography} />
-        <GoogleFont typography={typography} />
-
         {loading && <Loading />}
 
         <h1>Fraktio ERP 6000</h1>
@@ -36,11 +32,20 @@ class App extends React.Component {
             render={props => {
               return (
                 <IndexPage
-                  persons={persons}
+                  persons={persons.toList()}
                   hirePerson={hirePerson}
                   firePerson={firePerson}
                 />
               );
+            }}
+          />
+
+          <Route
+            exact
+            path="/persons/:id"
+            render={props => {
+              const person = persons.get(props.match.params.id);
+              return <PersonPage person={person} />;
             }}
           />
         </Switch>
