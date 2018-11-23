@@ -23,7 +23,7 @@ const AddPersonForm = props => {
           email: "gaylord.lohiposki@dr-kobros.com",
           relatedToCEO: true
         };
-        console.log(JSON.stringify(person));
+
         props.hirePerson(person);
       }}
     >
