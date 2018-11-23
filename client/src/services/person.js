@@ -12,8 +12,16 @@ const getPersons = async () => {
 const goodPersonFilter = p =>
   (p.age < 30 && p.gender === "m") || p.relatedToCEO;
 const evilPersonFilter = p => !goodPersonFilter(p);
-const getGoodPersons = persons => persons.filter(goodPersonFilter);
-const getEvilPersons = persons => persons.filter(evilPersonFilter);
+const getGoodPersons = persons =>
+  persons
+    .filter(goodPersonFilter)
+    .sortBy(p => p.firstName)
+    .sortBy(p => p.lastName);
+const getEvilPersons = persons =>
+  persons
+    .filter(evilPersonFilter)
+    .sortBy(p => p.firstName)
+    .sortBy(p => p.lastName);
 const formatAge = age => age.toFixed(2);
 
 export default {

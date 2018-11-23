@@ -1,15 +1,16 @@
 import React from "react";
 import { List } from "immutable";
-import personService from "../services/person";
+import posed from "react-pose";
 import PersonList from "./PersonList";
+import AddPersonForm from "./AddPersonForm";
 import { TypographyStyle, GoogleFont } from "react-typography";
 import typography from "../services/typography";
+import personService from "../services/person";
 import "./App.pcss";
-import posed from "react-pose";
 
 const AnimatedWrapper = posed.div({
   left: { x: "-100%", opacity: 0 },
-  right: { x: 0, delay: 1000, opacity: 1, transition: { duration: 2000 } }
+  right: { x: 0, delay: 1000, opacity: 1, transition: { duration: 0 } }
 });
 
 class App extends React.Component {
@@ -29,6 +30,12 @@ class App extends React.Component {
     }));
   };
 
+  hirePerson = person => {
+    this.setState(state => ({
+      persons: state.persons.concat(person)
+    }));
+  };
+
   componentWillUnmount() {
     // this can be useful for cleanup
   }
@@ -42,6 +49,8 @@ class App extends React.Component {
         <GoogleFont typography={typography} />
 
         <h1>Fraktio ERP 6000</h1>
+
+        <AddPersonForm hirePerson={this.hirePerson} />
 
         <PersonList
           title="Good"
