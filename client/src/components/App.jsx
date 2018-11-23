@@ -1,11 +1,10 @@
 import React from "react";
 import posed from "react-pose";
-import PersonList from "./PersonList";
-import AddPersonForm from "./AddPersonForm";
+import { Route, Switch } from "react-router";
+import IndexPage from "./IndexPage";
 import Loading from "./Loading";
 import { TypographyStyle, GoogleFont } from "react-typography";
 import typography from "../services/typography";
-import personService from "../services/person";
 import "./App.pcss";
 
 const AnimatedContainer = posed.div({
@@ -19,7 +18,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { persons, hirePerson, firePerson, loading } = this.props;
+    const { persons, loading, hirePerson, firePerson } = this.props;
 
     return (
       <AnimatedContainer initialPose="left" pose="right">
@@ -30,20 +29,21 @@ class App extends React.Component {
 
         <h1>Fraktio ERP 6000</h1>
 
-        <AddPersonForm hirePerson={hirePerson} />
-
-        <PersonList
-          title="Good"
-          persons={personService.getGoodPersons(persons)}
-          firePerson={firePerson}
-          showMetadata
-        />
-
-        <PersonList
-          title="Bad"
-          persons={personService.getEvilPersons(persons)}
-          firePerson={firePerson}
-        />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={props => {
+              return (
+                <IndexPage
+                  persons={persons}
+                  hirePerson={hirePerson}
+                  firePerson={firePerson}
+                />
+              );
+            }}
+          />
+        </Switch>
       </AnimatedContainer>
     );
   }

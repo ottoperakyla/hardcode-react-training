@@ -7,7 +7,7 @@ import posed from "react-pose";
 
 const FadeOut = posed.div({
   visible: { opacity: 1 },
-  firing: { opacity: 0, height: 0, transition: { duration: 500 } }
+  firing: { opacity: 0.5, transition: { duration: 500 } }
 });
 
 const Person = props => {

@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
-import App from "../components/App";
+import { withRouter } from "react-router";
 import { getPersons, hirePerson, firePerson } from "../ducks/person";
+import App from "../components/App";
 
 const mapStateToProps = state => ({
   persons: state.person.get("persons").toList(),
@@ -13,7 +14,9 @@ const mapDispatchToProps = {
   firePerson
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(App)
+);
