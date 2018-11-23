@@ -2,6 +2,7 @@ import React from "react";
 import posed from "react-pose";
 import PersonList from "./PersonList";
 import AddPersonForm from "./AddPersonForm";
+import Loading from "./Loading";
 import { TypographyStyle, GoogleFont } from "react-typography";
 import typography from "../services/typography";
 import personService from "../services/person";
@@ -9,7 +10,7 @@ import "./App.pcss";
 
 const AnimatedContainer = posed.div({
   left: { x: "-100%", opacity: 0 },
-  right: { x: 0, delay: 1000, opacity: 1, transition: { duration: 0 } }
+  right: { x: 0, delay: 1000, opacity: 1, transition: { duration: 1000 } }
 });
 
 class App extends React.Component {
@@ -18,12 +19,14 @@ class App extends React.Component {
   }
 
   render() {
-    const { persons, hirePerson, firePerson } = this.props;
+    const { persons, hirePerson, firePerson, loading } = this.props;
 
     return (
       <AnimatedContainer initialPose="left" pose="right">
         <TypographyStyle typography={typography} />
         <GoogleFont typography={typography} />
+
+        {loading && <Loading />}
 
         <h1>Fraktio ERP 6000</h1>
 

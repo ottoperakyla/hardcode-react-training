@@ -24,9 +24,25 @@ const getEvilPersons = persons =>
     .sortBy(p => p.lastName);
 const formatAge = age => age.toFixed(2);
 
+const firePerson = async id => {
+  await axios.delete(`${process.env.REACT_APP_API}/person/${id}`);
+  return id;
+};
+
+const hirePerson = async person => {
+  const response = await axios.post(
+    `${process.env.REACT_APP_API}/person`,
+    person
+  );
+
+  return response.data;
+};
+
 export default {
   getPersons,
   getGoodPersons,
   getEvilPersons,
-  formatAge
+  formatAge,
+  hirePerson,
+  firePerson
 };

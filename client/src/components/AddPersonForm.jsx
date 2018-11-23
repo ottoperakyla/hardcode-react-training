@@ -21,7 +21,7 @@ const AddPersonForm = props => {
           salary: random.integer(500, 1000),
           age: random.integer(10, 60),
           email: "gaylord.lohiposki@dr-kobros.com",
-          relatedToCEO: true
+          relatedToCEO: random.bool()
         };
 
         props.hirePerson(person);

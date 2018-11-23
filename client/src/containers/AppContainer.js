@@ -3,7 +3,8 @@ import App from "../components/App";
 import { getPersons, hirePerson, firePerson } from "../ducks/person";
 
 const mapStateToProps = state => ({
-  persons: state.person.get("persons")
+  persons: state.person.get("persons").toList(),
+  loading: Boolean(state.ui.get("loading"))
 });
 
 const mapDispatchToProps = {
