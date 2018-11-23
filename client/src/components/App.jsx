@@ -1,10 +1,12 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import posed from "react-pose";
 import { Route, Switch } from "react-router";
-import IndexPage from "./IndexPage";
-import PersonPage from "./PersonPage";
+import { Link } from "react-router-dom";
 import Loading from "./Loading";
 import "./App.pcss";
+
+const IndexPage = lazy(() => import("./IndexPage"));
+const PersonPage = lazy(() => import("./PersonPage"));
 
 const AnimatedContainer = posed.div({
   left: { x: "-100%", opacity: 0 },
@@ -23,7 +25,9 @@ class App extends React.Component {
       <AnimatedContainer initialPose="left" pose="right">
         {loading && <Loading />}
 
-        <h1>Fraktio ERP 6000</h1>
+        <Link to="/">
+          <h1>Fraktio ERP 6000</h1>
+        </Link>
 
         <Switch>
           <Route
@@ -31,11 +35,13 @@ class App extends React.Component {
             path="/"
             render={props => {
               return (
-                <IndexPage
-                  persons={persons.toList()}
-                  hirePerson={hirePerson}
-                  firePerson={firePerson}
-                />
+                <Suspense fallback={<Loading />}>
+                  <IndexPage
+                    persons={persons.toList()}
+                    hirePerson={hirePerson}
+                    firePerson={firePerson}
+                  />
+                </Suspense>
               );
             }}
           />
@@ -45,7 +51,11 @@ class App extends React.Component {
             path="/persons/:id"
             render={props => {
               const person = persons.get(props.match.params.id);
-              return <PersonPage person={person} />;
+              return (
+                <Suspense fallback={<Loading />}>
+                  <PersonPage person={person} />
+                </Suspense>
+              );
             }}
           />
         </Switch>
